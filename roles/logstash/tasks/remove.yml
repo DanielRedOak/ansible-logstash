@@ -1,0 +1,26 @@
+- name: Stopping Logstash with supervisor
+  supervisorctl: name=logstash state=stopped
+  failed_when: false
+
+- stat: path=/etc/supervisor/conf.d/logstash.conf
+  register: ls_supervisor
+
+- name: Removing supervisor config
+  file: path=/etc/supervisor/conf.d/logstash.conf state=absent
+  when: ls_supervisor.stat.exists
+
+- name: Updating supervisorctl
+  shell: supervisorctl update
+  when: ls_supervisor.stat.exists
+
+- name: Removing all versions of Logstash
+  shell: rm -r --interactive=never {{ logstash_install_path }}/logstash-*
+  register: remove
+  changed_when: remove.rc !=1
+  failed_when: false
+
+- name: Unlinking
+  file: path={{ logstash_install_path }}/logstash state=absent
+
+- name: Removing log directory {{ logstash_log_dir }}
+  file: path={{ logstash_log_dir }} state=absent

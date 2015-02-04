@@ -1,0 +1,28 @@
+[program:logstash]
+command={{ logstash_install_path }}/logstash/bin/logstash agent -f {{ logstash_conf_dir }} -l {{ logstash_log_dir }}/logstash.log {{ logstash_opts | default(omit) }}
+process_name=%(program_name)s
+numprocs=1
+directory={{logstash_install_path}}/logstash
+umask=022
+priority=999
+autostart={{ logstash_autostart }}
+autorestart=true
+startsecs=10
+startretries=3
+exitcodes=0,2
+stopsignal=TERM
+stopwaitsecs=10
+user=logstash
+redirect_stderr=true
+stdout_logfile={{ logstash_log_dir }}/logstash.stdout
+stdout_logfile_maxbytes=25MB
+stdout_logfile_backups=5
+stdout_capture_maxbytes=5MB
+stderr_logfile={{ logstash_log_dir }}/logstash.stderr
+stderr_logfile_maxbytes=25MB
+stderr_logfile_backups=5
+stderr_capture_maxbytes=5MB
+environment={% if logstash_java_home %}JAVA_HOME="{{ logstash_java_home}}",{% endif %}LS_HEAP_SIZE="{{ logstash_heap_size }}",LS_JAVA_OPTS="{{ logstash_java_opts }}"
+
+serverurl=AUTO
+

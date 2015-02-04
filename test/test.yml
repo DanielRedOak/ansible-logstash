@@ -1,0 +1,20 @@
+---
+- hosts: vagrant
+  roles:
+     - { role: java,
+         java_version: 8u25,
+         java_arch: x64,
+         java_install_path: /opt/java,
+         java_type: oracle,
+         java_links:
+           { '.': /opt/java/java8 },
+         java_s3_bucket: sps-build-deploy,
+         java_s3_base: /non-sps/oracle/java/
+                 }
+     - { role: logstash,
+         logstash_version: 1.5.0.beta1,
+         logstash_install_path: /opt,
+         logstash_s3_bucket: sps-build-deploy,
+         logstash_s3_base: /non-sps/elasticsearch/logstash/,
+         logstash_java_home: /opt/java/java8
+       }

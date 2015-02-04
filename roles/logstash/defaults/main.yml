@@ -1,0 +1,16 @@
+---
+# defaults file for logstash
+logstash_version: 1.5.0.beta1
+logstash_install_path: /opt
+logstash_s3_bucket: sps-build-deploy
+logstash_s3_base: /non-sps/elasticsearch/logstash/
+logstash_link: true
+logstash_remove_old: true
+logstash_setup_supervisor: true
+logstash_autostart: true
+logstash_heap_size: 500m
+logstash_java_opts: -Djava.io.tmpdir={{ logstash_install_path }}/logstash
+logstash_conf_dir: /etc/logstash/conf.d
+logstash_opts:
+logstash_log_dir: /var/log/logstash
+logstash_java_home:

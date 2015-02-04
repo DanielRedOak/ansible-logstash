@@ -1,0 +1,16 @@
+---
+# tasks file for logstash
+
+# Check to see if version is installed
+- name: Checking to see if Logstash is already installed at {{ logstash_install_path }}/logstash-{{ logstash_version }}
+  stat: path={{ logstash_install_path }}/logstash-{{ logstash_version }}/bin/logstash
+  register: ls_installed
+
+- include: remove.yml
+  when: logstash_remove_old and not ls_installed.stat.exists
+
+- include: s3_install.yml
+  when: not ls_installed.stat.exists
+
+- include: supervisor.yml
+  when: logstash_setup_supervisor

@@ -1,0 +1,4 @@
+- url: s3://sps-build-deploy/ansible/java-0.0.4.tgz
+  paths:
+    - from: .
+      to: roles/java

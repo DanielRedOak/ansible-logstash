@@ -1,0 +1,14 @@
+- file: path=/etc/supervisor/conf.d state=directory recurse=true
+- apt: name=supervisor
+- name: Setup Supervisor conf file for logstash
+  template:
+    src=logstash.conf.j2
+    dest=/etc/supervisor/conf.d/logstash.conf
+  register: ls_supervisor_template
+
+- name: Register logstash with supervisorctl
+  supervisorctl: name=logstash state=present
+
+- name: Start logstash with supervisorctl
+  supervisorctl: name=logstash state=started
+  when: logstash_autostart and ls_supervisor_template.changed
