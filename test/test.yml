@@ -16,5 +16,6 @@
          logstash_install_path: /opt,
          logstash_s3_bucket: sps-build-deploy,
          logstash_s3_base: /non-sps/elasticsearch/logstash/,
-         logstash_java_home: /opt/java/java8
+         logstash_java_home: /opt/java/java8,
+         logstash_state: present
        }

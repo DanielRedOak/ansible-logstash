@@ -1,4 +1,4 @@
-Logstash
+logstash
 =========
 
 This role installs, configures, and adds a supervisor service for logstash using tar packages
@@ -6,36 +6,52 @@ This role installs, configures, and adds a supervisor service for logstash using
 Requirements
 ------------
 
-This module uses an s3_file module not provided by Ansible-core.  SPS Commerce, Inc provides this module
+This role installs, configures, and adds a supervisor service for logstash using tar packages
 
 Role Variables
 --------------
-
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.)
-should be mentioned here as well.
+| variable | description | default | mandatory
+|----------|-------------|---------|----------
+| `logstash_state` | present or absent | present |
+| `logstash_s3_bucket` | S3 bucket where tar file is located | | yes
+| `logstash_s3_base` | base path to retrieve tar file from, not including filename | | yes
+| `logstash_link` | create a link from the install dir to ./logstash | true |
+| `logstash_remove_old` | remove old versions of logstash before installing | true |
+| `logstash_setup_supervisor` | setup supervisor to manage the logstash process | true |
+| `logstash_autostart` | start automatically on boot | true |
+| `logstash_heap_size` | size of the heap to start logstash with | 500m |
+| `logstash_java_opts` | java options to pass in at runtime | -Djava.io.tmpdir={{ logstash_install_path }}/logstash |
+| `logstash_conf_dir` | path to configuration directory (.d type split configs are accepted by logstash) | /etc/logstash/conf.d |
+| `logstash_opts` | extra options to start logstash with |  | no
+| `logstash_log_dir` | path to log file logstash will write to | /var/log/logstash |
+| `logstash_java_home` | override the java home logstash will use |  | no
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables
-that are used from other roles.
+No dependencies.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables
-passed in as parameters) is always nice for users too:
+An example playbook is included in the test directory, but here is a rundown on typical usage.
 
-    - hosts: servers
+    - hosts: all
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: logstash,
+             logstash_version: 1.5.0.beta1,
+             logstash_install_path: /opt,
+             logstash_s3_bucket: sps-build-deploy,
+             logstash_s3_base: /non-sps/elasticsearch/logstash/,
+             logstash_java_home: /opt/java/java8
+           }
+
+License
+-------
+
+Apache 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a
-website (HTML is not allowed).
+Author: Ryan O'Keeffe (okeefferd@gmail.com)
