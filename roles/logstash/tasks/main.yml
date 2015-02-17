@@ -14,3 +14,6 @@
 
 - include: supervisor.yml
   when: logstash_setup_supervisor and logstash_state == 'present'
+
+- include: config.yml
+  when: logstash_state == 'present'

@@ -1,5 +1,7 @@
 ---
 - hosts: vagrant
+  pre_tasks:
+     - shell: echo "input { }" > /tmp/test.config
   roles:
      - { role: java,
          java_version: 8u25,
@@ -17,5 +19,11 @@
          logstash_s3_bucket: sps-build-deploy,
          logstash_s3_base: /non-sps/elasticsearch/logstash/,
          logstash_java_home: /opt/java/java8,
-         logstash_state: present
+         logstash_state: present,
+         logstash_configs:
+            { test:
+              { source: /tmp/test.config,
+                dest: testerfile.conf
+              }
+            }
        }

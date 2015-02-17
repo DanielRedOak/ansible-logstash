@@ -1,2 +1,4 @@
 ---
-# handlers file for example
+- name: Restart logstash with supervisorctl
+  supervisorctl: name=logstash state=restarted
+  when: logstash_autostart

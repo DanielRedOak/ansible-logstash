@@ -25,6 +25,7 @@ Role Variables
 | `logstash_opts` | extra options to start logstash with |  | no
 | `logstash_log_dir` | path to log file logstash will write to | /var/log/logstash |
 | `logstash_java_home` | override the java home logstash will use |  | no
+| `logstash_configurations` | hash: { name: { source: <path>, dest: <filename> } } | none | no
 
 Dependencies
 ------------
@@ -43,7 +44,13 @@ An example playbook is included in the test directory, but here is a rundown on 
              logstash_install_path: /opt,
              logstash_s3_bucket: sps-build-deploy,
              logstash_s3_base: /non-sps/elasticsearch/logstash/,
-             logstash_java_home: /opt/java/java8
+             logstash_java_home: /opt/java/java8,
+             logstash_configs:
+               { test:
+                 { source: /tmp/test.config,
+                   dest: testerfile.conf
+                 }
+               }
            }
 
 License

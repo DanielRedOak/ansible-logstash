@@ -1,0 +1,8 @@
+- name: Create conf directory {{ logstash_conf_dir }}
+  file: path={{ logstash_conf_dir }} state=directory owner=logstash group=logstash
+
+- name: Looping through configurations
+  template: src={{ item.value.source }} dest={{ logstash_conf_dir }}/{{ item.value.dest }}
+  with_dict: logstash_configs
+  notify: Restart logstash with supervisorctl
+
