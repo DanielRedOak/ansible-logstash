@@ -18,9 +18,3 @@
 
 - name: Create log directory {{ logstash_log_dir }}
   file: path={{ logstash_log_dir }} state=directory owner=logstash group=logstash
-
-# Install plugins
-
-# Install supervisor
-
-# Configure supervisor

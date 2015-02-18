@@ -12,8 +12,8 @@
 - include: s3_install.yml
   when: not ls_installed.stat.exists and logstash_state == 'present'
 
-- include: supervisor.yml
-  when: logstash_setup_supervisor and logstash_state == 'present'
-
 - include: config.yml
   when: logstash_state == 'present'
+
+- include: supervisor.yml
+  when: logstash_setup_supervisor and logstash_state == 'present'
