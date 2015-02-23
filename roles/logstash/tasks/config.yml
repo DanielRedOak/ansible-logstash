@@ -6,3 +6,6 @@
   with_dict: logstash_configs
   notify: Restart logstash with supervisorctl
 
+- name: Setting up log rotation
+  template: src=logrotate.j2 dest={{ logrotate_dir | default('/etc/logrotate.d') }}/logstash
+

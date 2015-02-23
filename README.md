@@ -26,6 +26,7 @@ Role Variables
 | `logstash_log_dir` | path to log file logstash will write to | /var/log/logstash |
 | `logstash_java_home` | override the java home logstash will use |  | no
 | `logstash_configurations` | hash: { name: { source: <path>, dest: <filename> } } | none | no
+| `logrotate_dir` | directory for logrotate.d configs | '/etc/logrotate.d | no
 
 Dependencies
 ------------
@@ -62,3 +63,4 @@ Author Information
 ------------------
 
 Author: Ryan O'Keeffe (okeefferd@gmail.com)
+

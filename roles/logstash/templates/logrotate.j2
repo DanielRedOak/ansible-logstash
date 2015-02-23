@@ -1,0 +1,8 @@
+
+{{ logstash_log_dir}}/logstash.log {
+  daily
+  rotate    5
+  maxsize 50M
+  copytruncate
+  missingok
+}
