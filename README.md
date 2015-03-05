@@ -27,6 +27,7 @@ Role Variables
 | `logstash_java_home` | override the java home logstash will use |  | no
 | `logstash_configurations` | hash: { name: { source: <path>, dest: <filename> } } | none | no
 | `logrotate_dir` | directory for logrotate.d configs | '/etc/logrotate.d | no
+| `logstash_plugins` | list of hashes containing names of plugins to install. ex - name: magical_plugin | none | no
 
 Dependencies
 ------------
@@ -46,6 +47,8 @@ An example playbook is included in the test directory, but here is a rundown on 
              logstash_s3_bucket: sps-build-deploy,
              logstash_s3_base: /non-sps/elasticsearch/logstash/,
              logstash_java_home: /opt/java/java8,
+             logstash_plugins:
+                        [ { name: logstash-input-s3 } ],
              logstash_configs:
                { test:
                  { source: /tmp/test.config,

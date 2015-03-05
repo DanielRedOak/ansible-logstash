@@ -1,0 +1,7 @@
+# TODO check to see if its installed first
+- name: Installing plugins
+  shell: sudo -E -u logstash {{logstash_install_path}}/logstash-{{ logstash_version  }}/bin/plugin install {{ item.name }} chdir={{logstash_install_path}}/logstash-{{ logstash_version  }}
+  environment:
+    JAVA_HOME: "{{ logstash_java_home }}"
+  with_items: logstash_plugins
+  when: logstash_plugins is defined

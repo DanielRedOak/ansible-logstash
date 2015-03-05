@@ -13,6 +13,9 @@
 - name: Extract Logstash {{ logstash_version }}
   unarchive: copy=no src=/tmp/logstash-{{ logstash_version }}.tar.gz dest={{ logstash_install_path }} creates={{logstash_install_path}}/logstash-{{ logstash_version  }}
 
+- name: adjust permissions
+  file: group=logstash owner=logstash path={{logstash_install_path}}/logstash-{{ logstash_version  }} recurse=yes
+
 - name: Link {{ logstash_version }} to {{ logstash_install_path }}/logstash
   file: src={{ logstash_install_path }}/logstash-{{ logstash_version }} dest={{ logstash_install_path }}/logstash state=link
 

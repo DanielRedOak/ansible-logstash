@@ -20,6 +20,8 @@
          logstash_s3_base: /non-sps/elasticsearch/logstash/,
          logstash_java_home: /opt/java/java8,
          logstash_state: present,
+         logstash_plugins:
+           [ { name: logstash-input-s3 } ],
          logstash_configs:
             { test:
               { source: /tmp/test.config,
