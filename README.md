@@ -41,7 +41,7 @@ An example playbook is included in the test directory, but here is a rundown on 
     - hosts: all
       roles:
          - { role: logstash,
-             logstash_version: 1.5.0.beta1,
+             logstash_version: 1.5.0.rc1.1,
              logstash_install_path: /opt,
              logstash_s3_bucket: sps-build-deploy,
              logstash_s3_base: /non-sps/elasticsearch/logstash/,
