@@ -7,7 +7,7 @@
   when: logstash_plugins is defined
 
 - name: Updating plugins
-  shell: sudo -E -u logstash /opt/logstash-{{ logcentral_logstash_version | default('1.5.0.rc2') }}/bin/plugin update chdir=/opt/logstash-{{ logcentral_logstash_version | default('1.5.0.rc2') }}
+  shell: sudo -E -u logstash /opt/logstash-{{ logstash_version }}/bin/plugin update chdir=/opt/logstash-{{ logstash_version }}
   environment:
     JAVA_HOME: /opt/java/java8
   when: logstash_plugins_update
