@@ -1,13 +1,9 @@
 # TODO check to see if its installed first
 - name: Installing plugins
-  shell: sudo -E -u logstash {{logstash_install_path}}/logstash-{{ logstash_version  }}/bin/plugin install {{ item.name }} chdir={{logstash_install_path}}/logstash-{{ logstash_version  }}
-  environment:
-    JAVA_HOME: "{{ logstash_java_home }}"
+  shell: sudo -u logstash -H JAVA_HOME={{ logstash_java_home }} {{logstash_install_path}}/logstash-{{ logstash_version  }}/bin/plugin install {{ item.name }} chdir={{logstash_install_path}}/logstash-{{ logstash_version  }}
   with_items: logstash_plugins
   when: logstash_plugins is defined
 
 - name: Updating plugins
-  shell: sudo -E -u logstash /opt/logstash-{{ logstash_version }}/bin/plugin update chdir=/opt/logstash-{{ logstash_version }}
-  environment:
-    JAVA_HOME: /opt/java/java8
+  shell: sudo -u logstash -H JAVA_HOME={{ logstash_java_home }} {{logstash_install_path}}/logstash-{{ logstash_version  }}/bin/plugin update chdir={{logstash_install_path}}/logstash-{{ logstash_version  }}
   when: logstash_plugins_update
